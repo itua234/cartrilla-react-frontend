@@ -1,15 +1,28 @@
 import React, {useState, useEffect} from 'react';
-import {getAuthenticatedUser} from './common';
+import axios from 'axios';
+import {getTokenFromLocalStorage} from './common';
+import {APP_ROUTES, API_ROUTES} from '../utils/constants';
 
 export function useUser() {
     const [user, setUser]  = useState({});
     const [authenticated, setAuthenticated] = useState(false);
+    const token = getTokenFromLocalStorage();
 
     useEffect(() => {
         async function getUserDetails(){
-            const { authenticated, user } = await getAuthenticatedUser();
-            setUser(user);
-            setAuthenticated(authenticated);
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            };
+            axios.get(API_ROUTES.GET_USER, config)
+            .then((res) => {
+                setUser(res.data);
+                setAuthenticated(true);
+            }).catch((error) => {
+                setUser({});
+                setAuthenticated(false);
+            });
         }
         getUserDetails();
     },[]);

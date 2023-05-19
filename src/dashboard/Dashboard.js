@@ -20,36 +20,32 @@ const Dashboard = () => {
     const {cartItems} = useCart();
     const navigate = useNavigate();
     const activeStyle = {myaccount : {backgroundColor:'#fe696a',color:'white'}};
-    if(authenticated === false){
-        navigate(APP_ROUTES.SIGN_IN);
-    } else{
-        return (
+    
+    return (
+        <>
+        {
+            authenticated
+            ?
             <>
-                <Navbar user={user} cart={cartItems} />
-                <section className="" style={{marginTop:'80px'}}>
-                    <div className="container">
-                        <div className="row">
-                            {/* <ul className="col-xl-3 col-lg-3 col-md-4 list-unstyled">
-                                <li ><a href="/myaccount" className="dashboard-list-link d-flex align-items-center text-decoration-none" style={{backgroundColor:'#fe696a',color:'white'}}><img alt="" className="w-h-25 m-r-10" src={dashboard} />DASHBOARD</a></li>
-                                <li><a href="#" className="dashboard-list-link d-flex align-items-center text-decoration-none"><img alt="" className="w-h-25 m-r-10" src={cart} />ORDERS</a></li>
-                                <li><a href="#" className="dashboard-list-link d-flex align-items-center text-decoration-none"><img alt="" className="w-h-25 m-r-10" src={cloud} />DOWNLOADS</a></li>
-                                <li><a href="/address" className="dashboard-list-link d-flex align-items-center text-decoration-none"><img alt="" className="w-h-25 m-r-10" src={location} />ADDRESSES</a></li>
-                                <li><a href="#" className="dashboard-list-link d-flex align-items-center text-decoration-none"><img alt="" className="w-h-25 m-r-10" src={creditCard} />PAYMENT METHODS</a></li>
-                                <li><a href="/edit-account" className="dashboard-list-link d-flex align-items-center text-decoration-none"><img alt="" className="w-h-25 m-r-10" src={userImg} />ACCOUNT DETAILS</a></li>
-                                <li><a href="/logout" className="dashboard-list-link d-flex align-items-center text-decoration-none"><img alt="" className="w-h-25 m-r-10" src={logout} />LOGOUT</a></li>
-                            </ul> */}
-                            <Sidebar active={activeStyle}/>
-                            <div className="col-xl-9 col-lg-9 col-md-8">
-                                <p style={{fontSize:'14px'}}>Hello {user.email}? <a href="/logout" className="dashlist-link">Log out</a></p>
-                                <p style={{fontSize:'14px'}}>From your account dashboard you can view your <a href="" className="dashlist-link">recent orders</a>, manage your <a href="/address" className="dashlist-link">shipping and billing addresses</a>, and <a href="/edit-account" className="dashlist-link">edit your password and account details.</a></p>
-                            </div>
+            <Navbar user={user} cart={cartItems} />
+            <section className="" style={{marginTop:'80px'}}>
+                <div className="container">
+                    <div className="row">
+                        <Sidebar active={activeStyle}/>
+                        <div className="col-xl-9 col-lg-9 col-md-8">
+                            <p style={{fontSize:'14px'}}>Hello {user.email}? <a href="/logout" className="dashlist-link">Log out</a></p>
+                            <p style={{fontSize:'14px'}}>From your account dashboard you can view your <a href="" className="dashlist-link">recent orders</a>, manage your <a href="/address" className="dashlist-link">shipping and billing addresses</a>, and <a href="/edit-account" className="dashlist-link">edit your password and account details.</a></p>
                         </div>
                     </div>
-                </section>
-                <Footer />
+                </div>
+            </section>
+            <Footer />
             </>
-        );
-    }
+            :
+            navigate(APP_ROUTES.SIGN_IN)
+        }
+        </>
+    );
 }
 
 export default Dashboard;

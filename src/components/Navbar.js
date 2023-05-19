@@ -10,7 +10,7 @@ const Navbar = ({user, cart}) => {
             <section className="d-flex align-items-center pos-fixed" style={{zIndex:500,padding:"0 15px",height:'60px',top:0,left:0,width:"100%"}}>
                 <a href="/" style={{marginRight:'auto'}}><span>CARTZILLA</span></a>
                 <div className="m-r-15">
-                    <a href="/myaccount"><img className="w-h-30" src={user ? SignedUserImg : userImg} /></a>
+                    <a href="/myaccount"><img className="w-h-30" src={Object.keys(user).length !== 0 ? SignedUserImg : userImg} /></a>
                 </div>
                 <div className="pos-relative cart-count m-r-15 d-flex align-items-center justify-content-center" style={{backgroundColor:'#e9ecef',borderRadius:'50%',width:'40px',height:'40px'}}>
                     <img alt="" className="w-h-25" src={wishlist} />
