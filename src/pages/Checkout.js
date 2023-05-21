@@ -1,14 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'; 
 import {useNavigate} from 'react-router-dom';
-import Header from '../components/Header';
+import "../assets/css/util.css";
+import "../assets/css/bootstrap.css";
+import "../assets/css/main-app.css";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import {API_ROUTES} from '../utils/constants.js';
 import {getTokenFromLocalStorage} from '../lib/common';
+import {useUser, useCart} from '../lib/customHooks';
 import Collapse from "react-bootstrap/Collapse";
 
 const Checkout = () => {
+    const {user} = useUser();
+    const {cartItems} = useCart();
     const [coupon, setCoupon] = useState("");
     var [states, setStates] = useState([]);
     var [cities, setCities] = useState([]);
@@ -90,8 +95,7 @@ const Checkout = () => {
 
     return (
         <>
-            <Header />
-            <Navbar />
+            <Navbar user={user} cart={cartItems} />
             <section className="m-t-80 m-b-40">
                 <div className="container">
                     <h5 style={{fontWeight:"bold"}}>Billing Details</h5>

@@ -16,7 +16,7 @@ export const API_ROUTES = {
     UPDATE_SHIPPING_ADDRESS: `${API_URL}/user/shipping/address`,
     UPDATE_BILLING_ADDRESS: `${API_URL}/user/billing/address`,
     ORDER: `${API_URL}/order/`,
-    VERIFY_ORDER_REFERENCE: `${API_URL}/order/`,
+    VERIFY_ORDER: `${API_URL}/order/verify/`,
 }
 
 export const APP_ROUTES = {

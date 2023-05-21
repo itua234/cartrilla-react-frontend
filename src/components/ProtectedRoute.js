@@ -1,21 +1,15 @@
 import React, {useState} from 'react';
 import axios from 'axios'; 
-import {BrowserRouter, Route, Routes, Navigate, Redirect} from 'react-router-dom';
-//import {Redirect, Route} from 'react-router-dom';
-import {useNavigate} from 'react-router-dom';
-import {useUser} from '../lib/customHooks';
+import {Outlet, Navigate} from 'react-router-dom';
+import {getTokenFromLocalStorage} from '../lib/common';
+import {API_ROUTES} from '../utils/constants';
 
 const ProtectedRoute = ({component: Component, ...restOfProps}) => {
-    const { user, authenticated } = useUser();
-    const navigate = useNavigate();
+    const authenticated = localStorage.getItem('isLoggedIn');
 
-    // return (
-    //     <Route {...restOfProps}
-    //     render={(props) => 
-    //          authenticated ? <Component {...props} /> : <Redirect to="/login" />
-    //     }
-    //     />
-    // )
+    return (
+        authenticated ? <Outlet /> : <Navigate to="/login" />
+    )
 }
 
 export default ProtectedRoute;

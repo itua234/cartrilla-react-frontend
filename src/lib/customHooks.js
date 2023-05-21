@@ -15,7 +15,7 @@ export function useUser() {
                     Authorization: `Bearer ${token}`
                 }
             };
-            axios.get(API_ROUTES.GET_USER, config)
+            await axios.get(API_ROUTES.GET_USER, config)
             .then((res) => {
                 setUser(res.data);
                 setAuthenticated(true);
@@ -34,13 +34,13 @@ export function useCart(items) {
     const [cartItems, setCart] = useState({});
     var deflt;
     useEffect(() => {
-        var items = JSON.parse(localStorage.getItem('cart'));
-        if(Object.keys(items).length  === 0){
-            deflt = {}
-        }else{
-            deflt = items;
-        }
-        setCart(deflt);
+        var item = JSON.parse(localStorage.getItem('cart'));
+        // if(Object.keys(items).length  === 0){
+        //     deflt = {}
+        // }else{
+        //     deflt = items;
+        // }
+        setCart(item);
     },[items]);
 
     return { cartItems };

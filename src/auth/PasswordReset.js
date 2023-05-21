@@ -47,18 +47,15 @@ const PasswordReset = () => {
             setErrors({});
             setMsg(res.data.message);
             setLoading({display: "none"});
-            //return navigate(APP_ROUTES.SIGN_IN);
         }).catch((error) => {
+            setErrors({});
             let errors = error.response.data.error;
             if(errors.password){
                 handleErrors(errors.password, 'password');  
-            }else{
-                handleErrors('', 'password');
             }
+
             if(errors.password_confirmation){
                 handleErrors(errors.password_confirmation, 'password_confirmation');
-            }else{
-                handleErrors('', 'password_confirmation');
             }
             setLoading({display: "none"});
         });
@@ -146,7 +143,6 @@ const PasswordReset = () => {
             </section>
             <Footer />
             </>
-            
         }
         </>
     );

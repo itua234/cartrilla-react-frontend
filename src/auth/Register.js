@@ -6,8 +6,9 @@ import "../assets/css/bootstrap.css";
 import "../assets/css/main-app.css";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Loader from '../components/Loader';
 import { useCart, useUser } from '../lib/customHooks';
-import {APP_ROUTES, API_ROUTES} from '../utils/constants';
+import {API_ROUTES} from '../utils/constants';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -16,11 +17,11 @@ const Register = () => {
     const [inputs, setInputs] = useState({});
     const [msg, setMsg] = useState('');
     const [errors, setErrors] = useState({});
+    const [isLoading, setLoading] = useState({display: "none"});
     const [isVisible, setVisibility] = useState(false);
     
     const handleInputs = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
+        const {name, value} = event.target;
         setInputs(values => ({...values, [name]: value}));
     }
 
@@ -32,6 +33,7 @@ const Register = () => {
 
     const Register = (e) => {
         e.preventDefault();
+        setLoading({display: "flex"});
         setErrors({});
         setMsg("");
         
@@ -40,7 +42,7 @@ const Register = () => {
             alert(res);
             let message = res.data.message;
             handleMessage(message);
-            //navigate(APP_ROUTES.SIGN_IN);
+            setLoading({display: "none"});
         }).catch((error) => {
             let errors = error.response.data.error;
             if(errors.firstname){
@@ -66,8 +68,10 @@ const Register = () => {
             if(errors.password_confirmation){
                 handleErrors(errors.password_confirmation, 'password_confirmation');
             }
+            setLoading({display: "none"});
         });
     }
+    
     return (
         <>
         <Navbar user={user} cart={cartItems} />
@@ -154,12 +158,13 @@ const Register = () => {
                             </div>
                             
                             
-                            <div className="d-flex justify-content-end m-t-20">
+                            <div className="d-flex justify-content-end m-t-20 pos-relative">
                                 <button 
                                 type="submit" 
                                 className="btn btn-primary rounded-all w-100">
                                     Sign Up
                                 </button>
+                                <Loader display={isLoading} />
                             </div>
                         </form>
                     </div>

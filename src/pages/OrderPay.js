@@ -38,6 +38,7 @@ const OrderPay = () => {
         e.preventDefault();
         alert('do you want to cancel?');
     }
+    
     return (
         <>
             <Navbar user={user} cart={cartItems} />

@@ -27,6 +27,7 @@ const Sidebar = ({active}) => {
         .then((res) => {
             let newToken = res.data.results;
             localStorage.removeItem('token');
+            localStorage.setItem('isLoggedIn', false);
             navigate(APP_ROUTES.SIGN_IN);
         });
     }

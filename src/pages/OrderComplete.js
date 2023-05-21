@@ -1,24 +1,32 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios'; 
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
 import LocationWhite from "../assets/images/icon/Location-white.svg";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { useUser, useCart } from '../lib/customHooks';
+import {useUser, useCart} from '../lib/customHooks';
+import {APP_ROUTES, API_ROUTES} from '../utils/constants';
+import {getTokenFromLocalStorage} from '../lib/common';
 
 const OrderComplete = () => {
-    let { reference } = useParams();
     const { user } = useUser();
-    const {cartItems} = useCart();
-    // axios.get(API_ROUTES.VERIFY_ORDER_REFERENCE, {reference})
-    // .then((res) => {
-    //     let response = JSON.stringify(res);
-    //     alert(response);
-    // })
-    // .catch((error) => {
-    //     let errors = error.response.data.error;
+    const { cartItems } =  useCart();
+    //let [query] = useSearchParams();
+    let reference = sessionStorage.getItem('reference');
+    const token = getTokenFromLocalStorage();
+    const [order, setOrder] = useState({});
 
-    // });
+    useEffect(() => {
+        let complete = sessionStorage.getItem('orderIsComplete');
+        alert(complete);
+        // if(complete){
+        //     alert(true);
+        // }else{
+        //     alert(false);
+        // }
+    },[]);
+    
+
     return (
         <>
             <Navbar user={user} cart={cartItems} />
