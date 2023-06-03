@@ -4,11 +4,11 @@ import {Outlet, Navigate} from 'react-router-dom';
 import {getTokenFromLocalStorage} from '../lib/common';
 import {API_ROUTES} from '../utils/constants';
 
-const ProtectedRoute = ({component: Component, ...restOfProps}) => {
+const ProtectedRoute = () => {
     const authenticated = localStorage.getItem('isLoggedIn');
 
     return (
-        authenticated ? <Outlet /> : <Navigate to="/login" />
+        authenticated === "true" ? <Outlet /> : <Navigate to="/login" />
     )
 }
 

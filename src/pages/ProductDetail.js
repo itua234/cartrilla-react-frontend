@@ -24,6 +24,9 @@ const ProductDetail = () => {
 
     useEffect(() => {
         var items = JSON.parse(localStorage.getItem('cart'));
+        if(Object.is(items, null)){
+            items = {};
+        }
         setCart(items);
     },[cart]);
 

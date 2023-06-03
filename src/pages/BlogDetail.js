@@ -13,8 +13,7 @@ const BlogDetail = () => {
     const [errors, setErrors] = useState({});
 	
 	const handleInputs = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
+        const {name, value} = event.target;
         setInputs(values => ({...values, [name]: value}));
     }
 
@@ -51,14 +50,6 @@ const BlogDetail = () => {
         //         handleMessage('')
         //     }else{
         //         handleErrors('', 'password');
-        //     }
-            
-        //     if(error.response.status == 400){
-        //         handleMessage(error.response.data.message)
-        //     }
-
-        //     if(error.response.status == 401){
-        //         handleMessage(error.response.data.message)
         //     }
         // });
     }

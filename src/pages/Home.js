@@ -5,6 +5,7 @@ import instagram from "../assets/images/footer/instagram.svg";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Blog from '../components/Blog';
+import Slide from '../components/Slide';
 import Products from '../components/Products';
 import {API_ROUTES} from '../utils/constants.js';
 import "../assets/css/main.css";
@@ -24,7 +25,8 @@ const Home = () => {
     return (
         <>
             <Navbar user={user} cart={cartItems} />
-            <section className="" style={{marginTop:'80px'}}>
+            <Slide />
+            <section className="" style={{marginTop:''}}>
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-center p-b-15 p-t-40 bg-faded-primary">

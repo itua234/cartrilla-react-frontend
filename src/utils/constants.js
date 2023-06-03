@@ -23,4 +23,8 @@ export const APP_ROUTES = {
     SIGN_UP: "/register",
     SIGN_IN: "/login",
     DASHBOARD: "/myaccount",
+    CART: "/cart",
+    VERIFY_ORDER: "/order/verify/",
+    ORDER_COMPLETE: "/order-complete/",
+    ORDER_PAY: "/order-pay"
 }

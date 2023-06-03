@@ -26,6 +26,7 @@ const EditAccount = () => {
             axios.get(API_ROUTES.GET_USER, config)
             .then((res) => {
                 setUser(res.data);
+                setInputs(res.data);
             }).catch((error) => {
                 setUser({});
             });
@@ -34,8 +35,7 @@ const EditAccount = () => {
     },[]);
     
     const handleInputs = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
+        const {name, value} = event.target;
         setInputs(values => ({...values, [name]: value}));
     }
 

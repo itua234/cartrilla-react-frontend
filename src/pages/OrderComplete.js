@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios'; 
-import {useNavigate, useParams, useSearchParams} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import LocationWhite from "../assets/images/icon/Location-white.svg";
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -9,26 +9,26 @@ import {APP_ROUTES, API_ROUTES} from '../utils/constants';
 import {getTokenFromLocalStorage} from '../lib/common';
 
 const OrderComplete = () => {
+    const navigate = useNavigate();
     const { user } = useUser();
     const { cartItems } =  useCart();
-    //let [query] = useSearchParams();
-    let reference = sessionStorage.getItem('reference');
-    const token = getTokenFromLocalStorage();
+    let location = useLocation();
+    let reference = location.state.reference;
     const [order, setOrder] = useState({});
+    let success = sessionStorage.getItem('orderIsComplete');
 
     useEffect(() => {
-        let complete = sessionStorage.getItem('orderIsComplete');
-        alert(complete);
-        // if(complete){
-        //     alert(true);
-        // }else{
-        //     alert(false);
-        // }
+        
     },[]);
     
-
     return (
         <>
+        {
+            success !== "true"
+            ?
+            navigate(APP_ROUTES.CART)
+            :
+            <>
             <Navbar user={user} cart={cartItems} />
             <section className="m-t-80 m-b-30">
                 <div className="container">
@@ -45,6 +45,8 @@ const OrderComplete = () => {
                 </div>
             </section>	
             <Footer />
+            </>
+        }
         </>
     );
 }

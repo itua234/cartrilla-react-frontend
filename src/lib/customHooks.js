@@ -32,14 +32,13 @@ export function useUser() {
 
 export function useCart(items) {
     const [cartItems, setCart] = useState({});
-    var deflt;
+
     useEffect(() => {
         var item = JSON.parse(localStorage.getItem('cart'));
-        // if(Object.keys(items).length  === 0){
-        //     deflt = {}
-        // }else{
-        //     deflt = items;
-        // }
+        if(Object.is(item, null)){
+            item = {};
+        }
+        
         setCart(item);
     },[items]);
 

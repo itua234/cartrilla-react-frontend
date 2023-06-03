@@ -39,7 +39,7 @@ const Login = () => {
         .then((res) => {
             let token = res.data.results;
             localStorage.setItem('token', token);
-            localStorage.setItem('isLoggedIn', true);
+            localStorage.setItem('isLoggedIn', "true");
             navigate(APP_ROUTES.DASHBOARD);
         }).catch((error) => {
             setErrors({});

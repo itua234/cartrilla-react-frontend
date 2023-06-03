@@ -27,7 +27,7 @@ const Sidebar = ({active}) => {
         .then((res) => {
             let newToken = res.data.results;
             localStorage.removeItem('token');
-            localStorage.setItem('isLoggedIn', false);
+            localStorage.setItem('isLoggedIn', "false");
             navigate(APP_ROUTES.SIGN_IN);
         });
     }
@@ -36,7 +36,7 @@ const Sidebar = ({active}) => {
         <>
             <ul className="col-xl-3 col-lg-3 col-md-4 list-unstyled">
                 <li ><a href="/myaccount" className="dashboard-list-link d-flex align-items-center text-decoration-none" style={active.myaccount}><img alt="" className="w-h-25 m-r-10" src={dashboard} />DASHBOARD</a></li>
-                <li><a href="#" className="dashboard-list-link d-flex align-items-center text-decoration-none"><img alt="" className="w-h-25 m-r-10" src={cart} />ORDERS</a></li>
+                <li><a href="/orders" className="dashboard-list-link d-flex align-items-center text-decoration-none" style={active.order}><img alt="" className="w-h-25 m-r-10" src={cart} />ORDERS</a></li>
                 <li><a href="#" className="dashboard-list-link d-flex align-items-center text-decoration-none"><img alt="" className="w-h-25 m-r-10" src={cloud} />DOWNLOADS</a></li>
                 <li><a href="/address" className="dashboard-list-link d-flex align-items-center text-decoration-none" style={active.address}><img alt="" className="w-h-25 m-r-10" src={location} />ADDRESSES</a></li>
                 <li><a href="#" className="dashboard-list-link d-flex align-items-center text-decoration-none"><img alt="" className="w-h-25 m-r-10" src={creditCard} />PAYMENT METHODS</a></li>

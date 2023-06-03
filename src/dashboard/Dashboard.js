@@ -18,7 +18,7 @@ const Dashboard = () => {
                 <div className="row">
                     <Sidebar active={activeStyle}/>
                     <div className="col-xl-9 col-lg-9 col-md-8">
-                        <p style={{fontSize:'14px'}}>Hello {user.email}? <a href="/logout" className="dashlist-link">Log out</a></p>
+                        <p style={{fontSize:'14px'}}>Hello {user.email} <a href="#" className="dashlist-link">Log out</a></p>
                         <p style={{fontSize:'14px'}}>From your account dashboard you can view your <a href="" className="dashlist-link">recent orders</a>, manage your <a href="/address" className="dashlist-link">shipping and billing addresses</a>, and <a href="/edit-account" className="dashlist-link">edit your password and account details.</a></p>
                     </div>
                 </div>

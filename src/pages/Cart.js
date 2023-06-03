@@ -20,7 +20,15 @@ const Cart = () => {
         var items = JSON.parse(localStorage.getItem('cart'));
         var sum = 0;
         var total = {};
-        var tax = 600;
+        var tax = 550;
+        if(Object.is(items, null)){
+            items = {};
+            total = {
+                "subtotal": sum,
+                "tax": tax,
+                "total": sum + tax
+            }
+        }
         if(Object.keys(items) !== 0){
             Object.keys(items).map(key => {
                 sum += items[key]["total"];
@@ -47,7 +55,8 @@ const Cart = () => {
             ...values, 
             [item["uuid"]]: {
                 ...values[item["uuid"]],
-                "quantity": item["quantity"]
+                "quantity": item["quantity"],
+                "total": item["quantity"] * item["price"] 
             }
         }));
     }
@@ -60,7 +69,8 @@ const Cart = () => {
             ...values, 
             [item["uuid"]]: {
                 ...values[item["uuid"]],
-                "quantity": item["quantity"]
+                "quantity": item["quantity"],
+                "total": item["quantity"] * item["price"] 
             }
         }));
     }
@@ -73,11 +83,12 @@ const Cart = () => {
         }, {});
 
         setCart(newCart);
+        localStorage.setItem('cart', JSON.stringify(newCart));
+        setUpdated(!isUpdated);
     }
 
     const handleInputs = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
+        const {name, value} = event.target;
         setInputs(values => ({...values, [name]: value}));
     }
 
@@ -113,6 +124,10 @@ const Cart = () => {
                     <div className="col-md-7 col-sm-12">
                         <ul className="list-unstyled cart_item_container">
                             {
+                                Object.keys(cart).length === 0
+                                ?
+                                <>There are no items in the cart</>
+                                :
                                 Object.keys(cart).map((key) => (
                                     <li className="list-group-item" key={cart[key]}>
                                         <div className="row align-items-center">
@@ -192,7 +207,9 @@ const Cart = () => {
                                 type="submit"
                                 className="btn w-full btn-outline-primary update-cart" 
                                 name="">Update Cart</button>
+                                
                             </div>
+                            
                         </div>
                     </div>
                     <div className="col-md-4 col-sm-12">
@@ -203,7 +220,7 @@ const Cart = () => {
                                     <span>${calculation["subtotal"]}</span>
                                 </li>
                                 <li style={{borderBottom:'1px solid rgba(0, 0, 0, 0.125)'}} className="p-t-15 p-b-15 d-flex justify-content-between">
-                                    <span>Tax</span>
+                                    <span>Delivery Cost</span>
                                     <span>${calculation["tax"]}</span>
                                 </li>
                                 <li style={{borderBottom:'1px solid rgba(0, 0, 0, 0.125)'}} className="font-weight-bold p-t-15 p-b-15 d-flex justify-content-between">

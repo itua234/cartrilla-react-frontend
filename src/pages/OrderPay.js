@@ -1,44 +1,49 @@
-import React, {useState} from 'react';
-import axios from 'axios'; 
-import {useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useUser, useCart } from '../lib/customHooks';
+import { APP_ROUTES } from '../utils/constants';
+import { PaystackButton } from "react-paystack";
 
 const OrderPay = () => {
+    const navigate = useNavigate();
     const { user } = useUser();
-    const {cartItems} = useCart();
+    const { cartItems } = useCart();
     const Dashed = {
-        borderBottom:"1px dashed black"
+        borderBottom: "1px dashed black"
     };
 
-    let payment = JSON.parse(localStorage.getItem('payment'));
-    let orderNo = payment['orderNo'];
-    let keys = payment['public_key'];
-    let email = payment.email;
-    let total = payment.total;
-    let reference = payment.reference;
+    let order = JSON.parse(sessionStorage.getItem('order'));
+    let orderNo = order.order_no;
+    let total = order.total;
+    let reference = order.reference;
 
-    const Pay = (e) => {
-        e.preventDefault();
-        alert('are you ready to make payment?');
-
-        // axios.post(API_ROUTES.ORDER, data)
-        // .then((res) => {
-        //     let response = JSON.stringify(res);
-        //     alert(response);
-        // })
-        // .catch((error) => {
-        //     let errors = error.response.data.error;
-
-        // });
+    const publicKey = "pk_test_dcebfce002c3f0f29374316e9a37c6e5fab9736d"
+    const amount = total * 100 // Remember, set in kobo!
+    const [email, setEmail] = useState(order.email)
+    const [name, setName] = useState(order.name)
+    const [phone, setPhone] = useState(order.phone)
+    const componentProps = {
+        email,
+        amount,
+        metadata: {
+            name,
+            phone,
+        },
+        publicKey,
+        text: "Pay Now",
+        reference,
+        onSuccess: ({ reference }) =>
+            navigate(APP_ROUTES.VERIFY_ORDER + reference)
     }
 
     const Cancel = (e) => {
         e.preventDefault();
         alert('do you want to cancel?');
     }
-    
+
     return (
         <>
             <Navbar user={user} cart={cartItems} />
@@ -67,22 +72,18 @@ const OrderPay = () => {
                             <div className="p-t-30">
                                 <p>Thank you for your order, please click on the button below to pay with Paystack.</p>
                                 <div className="">
-                                    <form id="paymentForm" onSubmit={Pay}>
-                                        <div className="form-submit">
-                                            <button 
-                                            type="submit" 
-                                            className="btn btn-outline-primary text-decoration-none"> Pay Now</button>
-                                        </div>
-                                    </form>
-                                    <a href="#" 
-                                    onClick={Cancel}
-                                    className="btn btn-outline-primary text-decoration-none">Cancel order & restore cart</a> 
+                                    <PaystackButton className="btn btn-outline-primary text-decoration-none"
+                                        {...componentProps} />
+                                    <a href="#"
+                                        onClick={Cancel}
+                                        className="btn btn-outline-primary text-decoration-none m-l-4">Cancel order & restore cart
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>		
+            </section>
             <Footer />
         </>
     );
